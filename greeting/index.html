@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+
+    <style>
+
+        @font-face {
+          font-family: "Bumbbled";
+          src: url("Bumbbled.otf") format("opentype");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+      @font-face {
+          font-family: "Apple Garamond";
+          src: url("apple_garamond/AppleGaramond-Light.ttf") format("truetype");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        body{
+
+
+        }
+
+        .widget {
+          width: 420px;              /* match PNG width */
+          height: 300px;             /* match PNG height */
+      
+          background-image: url("window.png");
+          background-size: contain;  /* or "cover" if needed */
+          background-repeat: no-repeat;
+          background-position: center;
+      
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+      
+          padding: 40px 20px 20px;   /* push content below title bar */
+          box-sizing: border-box;
+      
+          border: none;
+          box-shadow: none;
+        }
+
+        .emoji {
+          font-size: 3.5em;
+          margin-bottom: 5px;
+          line-height: 1;
+        }
+           
+        .greet{
+            font-family: "Bumbbled", sans-serif;
+            font-size: 2.3em;
+        }
+
+        .date {
+      
+            font-family: "Apple Garamond", serif;
+            font-size: 2em;
+        }
+
+        .clock {
+            font-family: "Apple Garamond", serif;
+            font-size: 2em;
+        }
+
+        .time {
+            display: inline-block;
+            min-width: 20px;
+        }
+
+        .colon {
+            font-size: 1em;
+            display: inline-block;
+        }
+
+     
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+<div class="container">
+    <div class="widget window">
+      
+            <div class="emoji" id="emoji"></div>
+            <div class="greet" id="greet"></div>
+
+                <div class="date" id="date"></div>
+                <div class="clock">
+                    <div class="time" id="hour"></div>
+                    <div class="colon">:</div>
+                    <div class="time" id="min"></div>
+                    <div class="colon">:</div>
+                    <div class="time" id="sec"></div>
+                </div>
+           
+
+        
+
+    </div>
+</div>
+        
+
+
+
+<script>
+
+function dispalyGreetings(today) {
+    const hrs = today.getHours();
+    const name = "mag";
+
+    let greet = "";
+    let emoji = "";
+
+    if (hrs < 12) {
+        greet = "good morning " + name;
+        emoji = "☀️";      // morning
+    } 
+    else if (hrs >= 12 && hrs < 17) {
+        greet = "good afternoon " + name;
+        emoji = "🌤️";     // afternoon
+    } 
+    else {
+        greet = "good evening " + name;
+        emoji = "🌙";     // evening
+    }
+
+    document.getElementById("greet").textContent = greet;
+    document.getElementById("emoji").textContent = emoji;
+}
+
+    function dispalyDate(today) {  
+       
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+        var dayName = days[today.getDay()];
+        var monthName = monthNames[today.getMonth()];
+        var date = today.getDate();
+        var year = today.getFullYear();
+        document.getElementById('date').innerHTML =dayName+", "+monthName+" "+date+" "+year;
+
+    }
+
+
+    function dispalyClock(today) {
+
+        var hour = padZeros(twelveHour(today.getHours()));
+        var minutes = padZeros(today.getMinutes());
+        var seconds = padZeros(today.getSeconds());
+       
+        if(today.getHours() >=12){
+            seconds+=" pm"
+        }
+        else{
+            seconds+=" am"
+        }
+       
+        document.getElementById('hour').innerHTML = hour;
+        document.getElementById('min').innerHTML = minutes;
+        document.getElementById('sec').innerHTML = seconds;
+    }
+
+    function twelveHour(hour) {
+        if (hour > 12) {
+            return hour -= 12
+        } else if (hour === 0) {
+            return hour = 12;
+        } else {
+            return hour
+        }
+    }
+    function padZeros(num) {
+        if (num < 10) {
+            num = '0' + num
+        };
+        return num;
+    }
+
+    function dispalyWidget() {
+        var today = new Date();
+        dispalyGreetings(today);
+        dispalyDate(today);
+        dispalyClock(today);
+        setTimeout(dispalyWidget, 500);
+    }
+
+    dispalyWidget()
+
+</script>
+
+</body>
+</html>
