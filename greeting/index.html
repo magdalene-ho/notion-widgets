@@ -17,7 +17,7 @@
 
       @font-face {
           font-family: "Apple Garamond";
-          src: url("AppleGaramond-Light.ttf") format("truetype");
+          src: url("apple_garamond/AppleGaramond-Light.ttf") format("truetype");
           font-weight: normal;
           font-style: normal;
         }
@@ -27,30 +27,36 @@
 
         }
 
+        .widget-wrapper {
+            width: 100%;
+            min-width: 220px;
+            max-width: 420px;   /* original design size */
+            margin: auto;
+          }
+        
         .widget {
-          width: 420px;              /* match PNG width */
-          height: 300px;             /* match PNG height */
-      
-          background-image: url("window.png");
-          background-size: contain;  /* or "cover" if needed */
-          background-repeat: no-repeat;
-          background-position: center;
-      
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-      
-          padding: 40px 20px 20px;   /* push content below title bar */
-          box-sizing: border-box;
-      
-          border: none;
-          box-shadow: none;
-        }
+            width: 100%;
+            aspect-ratio: 420 / 300; /* PNG ratio */
+        
+            background-image: url("window.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        
+            padding: 2.5em 1.5em 1.5em; /* scales with font-size */
+            box-sizing: border-box;
+        
+            font-size: clamp(12px, 2.5vw, 16px); /* 🔥 global scale */
+          }
 
         .emoji {
           font-size: 3.5em;
-          margin-bottom: 5px;
+          margin-bottom: 0.2em;
           line-height: 1;
         }
            
@@ -92,7 +98,7 @@
 
 
 
-<div class="container">
+<div class="widget-wrapper">
     <div class="widget window">
       
             <div class="emoji" id="emoji"></div>
